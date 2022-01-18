@@ -1,6 +1,7 @@
 import React from "react"
+import ShowButton from "./ShowButton"
 
-const CountryInfo = ({ searchField, countries }) => {
+const CountryInfo = ({ searchField, setSearchField, countries }) => {
   const filterCountries = countries.filter((country) =>
     country.name.common.toLowerCase().includes(searchField.toLowerCase())
   )
@@ -17,7 +18,12 @@ const CountryInfo = ({ searchField, countries }) => {
       <div>
         {filterCountries.map((country) => (
           <span key={country.name.common}>
-            {country.name.common} <br />
+            {country.name.common}
+            <ShowButton
+              setSearchField={setSearchField}
+              country={country.name.common}
+            />
+            <br />
           </span>
         ))}
       </div>
@@ -37,8 +43,9 @@ const CountryInfo = ({ searchField, countries }) => {
         </p>
         <h3>languages </h3>
         <ul>
-            {Object.values(country.languages).map((language) => 
-            <li key={language}>{language}</li>)}
+          {Object.values(country.languages).map((language) => (
+            <li key={language}>{language}</li>
+          ))}
         </ul>
         <img src={country.flags.png} width="100px" />
       </div>
