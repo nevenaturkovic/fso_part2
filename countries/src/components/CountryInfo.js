@@ -1,5 +1,6 @@
 import React from "react"
 import ShowButton from "./ShowButton"
+import Weather from "./Weather"
 
 const CountryInfo = ({ searchField, setSearchField, countries }) => {
   const filterCountries = countries.filter((country) =>
@@ -48,6 +49,7 @@ const CountryInfo = ({ searchField, setSearchField, countries }) => {
           ))}
         </ul>
         <img src={country.flags.png} width="100px" />
+        <Weather capital={country.capital} countryCode={country.cca2} />
       </div>
     )
   }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Filter from "./components/Filter"
 import CountryInfo from "./components/CountryInfo"
-import ShowButton from "./components/ShowButton"
 
 const App = () => {
   const [searchField, setSearchField] = useState("")
