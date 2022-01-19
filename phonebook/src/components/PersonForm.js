@@ -1,4 +1,5 @@
 import React from "react"
+import personService from "../services/persons"
 
 const PersonForm = ({
   persons,
@@ -10,7 +11,6 @@ const PersonForm = ({
 }) => {
   const addNewPerson = (event) => {
     event.preventDefault()
-
     // An array of names
     const names = persons.map((person) => person.name)
     if (names.includes(newName)) {
@@ -20,10 +20,12 @@ const PersonForm = ({
         name: newName,
         number: newNumber,
       }
-      setPersons(persons.concat(personObject))
+      personService.create(personObject).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson))
+        setNewName("")
+        setNewNumber("")
+      })
     }
-    setNewName("")
-    setNewNumber("")
   }
   const handleNameChange = (event) => {
     setNewName(event.target.value)
