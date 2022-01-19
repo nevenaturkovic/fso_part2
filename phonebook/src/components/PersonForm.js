@@ -11,10 +11,22 @@ const PersonForm = ({
 }) => {
   const addNewPerson = (event) => {
     event.preventDefault()
-    // An array of names
-    const names = persons.map((person) => person.name)
-    if (names.includes(newName)) {
-      window.alert(`${newName} is already added to phonebook`)
+    const existingPerson = persons.find((person) => person.name === newName)
+    if (existingPerson) {
+      const result = window.confirm(
+        `${newName} is already added to phonebook, replace the old number with a new one?`
+      )
+      if (result) {
+        personService
+          .update(existingPerson.id, { ...existingPerson, number: newNumber })
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== existingPerson.id ? person : returnedPerson
+              )
+            )
+          })
+      }
     } else {
       const personObject = {
         name: newName,
