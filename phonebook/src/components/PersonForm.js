@@ -1,4 +1,5 @@
 import React from "react"
+import Notification from "../components/Notification"
 import personService from "../services/persons"
 
 const PersonForm = ({
@@ -8,6 +9,7 @@ const PersonForm = ({
   setNewName,
   newNumber,
   setNewNumber,
+  setNotifications,
 }) => {
   const addNewPerson = (event) => {
     event.preventDefault()
@@ -25,6 +27,10 @@ const PersonForm = ({
                 person.id !== existingPerson.id ? person : returnedPerson
               )
             )
+            setNotifications(`Added '${returnedPerson.name}'`)
+            setTimeout(() => {
+              setNotifications(null)
+            }, 5000)
           })
       }
     } else {
@@ -36,6 +42,10 @@ const PersonForm = ({
         setPersons(persons.concat(returnedPerson))
         setNewName("")
         setNewNumber("")
+        setNotifications(`Added '${personObject.name}'`)
+        setTimeout(() => {
+          setNotifications(null)
+        }, 5000)
       })
     }
   }
