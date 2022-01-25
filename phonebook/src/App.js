@@ -22,7 +22,7 @@ const App = () => {
     <div>
       <h2>Phonebook</h2>
 
-      <Notification message={notifications} />
+      <Notification notification={notifications} />
 
       <Filter searchField={searchField} setSearchField={setSearchField} />
 

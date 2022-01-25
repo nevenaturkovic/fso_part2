@@ -27,10 +27,19 @@ const PersonForm = ({
                 person.id !== existingPerson.id ? person : returnedPerson
               )
             )
-            setNotifications(`Added '${returnedPerson.name}'`)
+            setNotifications({
+              message: `Added '${returnedPerson.name}'`,
+              kind: "info",
+            })
             setTimeout(() => {
               setNotifications(null)
             }, 5000)
+          })
+          .catch((error) => {
+            setNotifications({
+              message: `Information of '${newName}' has already been removed from server`,
+              kind: "error",
+            })
           })
       }
     } else {
@@ -42,7 +51,10 @@ const PersonForm = ({
         setPersons(persons.concat(returnedPerson))
         setNewName("")
         setNewNumber("")
-        setNotifications(`Added '${personObject.name}'`)
+        setNotifications({
+          message: `Added '${returnedPerson.name}'`,
+          kind: "info",
+        })
         setTimeout(() => {
           setNotifications(null)
         }, 5000)
