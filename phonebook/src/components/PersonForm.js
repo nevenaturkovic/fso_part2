@@ -47,18 +47,28 @@ const PersonForm = ({
         name: newName,
         number: newNumber,
       }
-      personService.create(personObject).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson))
-        setNewName("")
-        setNewNumber("")
-        setNotifications({
-          message: `Added '${returnedPerson.name}'`,
-          kind: "info",
+      personService
+        .create(personObject)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName("")
+          setNewNumber("")
+          setNotifications({
+            message: `Added '${returnedPerson.name}'`,
+            kind: "info",
+          })
+          setTimeout(() => {
+            setNotifications(null)
+          }, 5000)
         })
-        setTimeout(() => {
-          setNotifications(null)
-        }, 5000)
-      })
+        .catch((error) => {
+          // this is the way to access the error message
+          console.log(error.response.data)
+          setNotifications({
+            message: error.response.data.error,
+            kind: "error",
+          })
+        })
     }
   }
   const handleNameChange = (event) => {
