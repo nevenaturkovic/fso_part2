@@ -14,7 +14,10 @@ const PersonForm = ({
   const addNewPerson = (event) => {
     event.preventDefault()
     const existingPerson = persons.find((person) => person.name === newName)
+    console.log(existingPerson)
+
     if (existingPerson) {
+      console.log("existing")
       const result = window.confirm(
         `${newName} is already added to phonebook, replace the old number with a new one?`
       )
@@ -37,12 +40,14 @@ const PersonForm = ({
           })
           .catch((error) => {
             setNotifications({
-              message: `Information of '${newName}' has already been removed from server`,
+              message: error.response.data.error,
               kind: "error",
             })
           })
       }
     } else {
+      console.log("new person")
+
       const personObject = {
         name: newName,
         number: newNumber,
@@ -63,6 +68,7 @@ const PersonForm = ({
         })
         .catch((error) => {
           // this is the way to access the error message
+          console.log(error)
           console.log(error.response.data)
           setNotifications({
             message: error.response.data.error,
